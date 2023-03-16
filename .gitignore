@@ -120,3 +120,6 @@ dist
 .DS_Store
 Thumbs.db
 Thumbs.db:encryptable
+
+# Build files
+src/**/*.js

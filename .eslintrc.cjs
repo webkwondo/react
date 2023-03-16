@@ -43,7 +43,8 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'error',
     '@typescript-eslint/no-var-reqiures': 'off',
     'react/jsx-uses-react': 'off',
-    'react/react-in-jsx-scope': 0,
+    'react/react-in-jsx-scope': 'off',
+    'react/prefer-stateless-function': [0, { 'ignorePureComponents': true }]
   },
   settings: {
     react: {
