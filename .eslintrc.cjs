@@ -44,7 +44,12 @@ module.exports = {
     '@typescript-eslint/no-var-reqiures': 'off',
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
-    'react/prefer-stateless-function': [0, { 'ignorePureComponents': true }]
+    'react/prefer-stateless-function': [0, { 'ignorePureComponents': true }],
+    'jsx-a11y/label-has-associated-control': ['error', {
+      'required': {
+        'some': ['nesting', 'id']
+      }
+    }],
   },
   settings: {
     react: {

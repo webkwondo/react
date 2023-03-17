@@ -38,3 +38,9 @@
 .page__footer {
   margin-top: auto;
 }
+
+.page__search-bar {
+  &:not(:last-child) {
+    margin-bottom: 24px;
+  }
+}

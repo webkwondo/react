@@ -1,4 +1,5 @@
 import React from 'react';
+import SearchBar from '../components/SearchBar';
 
 class HomePage extends React.Component {
   render() {
@@ -13,6 +14,7 @@ class HomePage extends React.Component {
 
           <section className="page__home home">
             <div className="home__container container">
+              <SearchBar />
               <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo veniam eligendi
                 perspiciatis harum maxime consequatur dolore magnam explicabo eos, blanditiis a
