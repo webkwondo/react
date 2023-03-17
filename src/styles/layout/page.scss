@@ -44,3 +44,9 @@
     margin-bottom: 24px;
   }
 }
+
+.page__cards {
+  &:not(:last-child) {
+    margin-bottom: 48px;
+  }
+}
