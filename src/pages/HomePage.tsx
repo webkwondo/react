@@ -2,7 +2,16 @@ import React from 'react';
 import SearchBar from '../components/SearchBar';
 import Cards from '../components/Cards';
 
-class HomePage extends React.Component {
+interface IHomePageProps {
+  onPageChange: (pageName: string) => void;
+}
+
+class HomePage extends React.Component<IHomePageProps> {
+  componentDidMount() {
+    const { onPageChange } = this.props;
+    onPageChange('Home');
+  }
+
   render() {
     return (
       <main className="page__main page__main--home">

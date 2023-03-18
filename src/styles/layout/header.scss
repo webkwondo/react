@@ -1,4 +1,17 @@
 .header {
   background: $white;
   box-shadow: $header-box-shadow;
+
+  &__inner {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  &__current-page-name {
+    text-transform: uppercase;
+    margin-left: auto;
+  }
 }
