@@ -10,7 +10,7 @@ class Card extends React.Component<ICardProps> {
     const { title, brand, category, rating, stock, description, price, discountPercentage } = item;
 
     return (
-      <div className="card">
+      <div className="card" data-testid="card">
         <div className="card__inner">
           <div className="card__image">
             <figure>
@@ -29,7 +29,7 @@ class Card extends React.Component<ICardProps> {
               <div className="card__brand">
                 <div className="badge badge--basic">
                   <div className="badge__inner">
-                    <span>{brand},</span>
+                    <span>{brand}</span>,
                   </div>
                 </div>
               </div>

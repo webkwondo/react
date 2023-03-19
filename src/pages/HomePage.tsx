@@ -1,12 +1,15 @@
 import React from 'react';
 import SearchBar from '../components/SearchBar';
 import Cards from '../components/Cards';
+import appData from '../data/data.json';
 
 interface IHomePageProps {
   onPageChange: (pageName: string) => void;
 }
 
 class HomePage extends React.Component<IHomePageProps> {
+  data: IAppData = appData as IAppData;
+
   componentDidMount() {
     const { onPageChange } = this.props;
     onPageChange('Home');
@@ -25,7 +28,7 @@ class HomePage extends React.Component<IHomePageProps> {
           <section className="page__home home">
             <div className="home__container container">
               <SearchBar />
-              <Cards />
+              <Cards products={this.data.products} />
               <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo veniam eligendi
                 perspiciatis harum maxime consequatur dolore magnam explicabo eos, blanditiis a

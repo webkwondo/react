@@ -1,14 +1,17 @@
 import React from 'react';
-import appData from '../data/data.json';
 import Card from './Card';
 
-class Cards extends React.Component {
-  data: IAppData = appData as IAppData;
+interface ICardsProps {
+  products: IProduct[];
+}
 
+class Cards extends React.Component<ICardsProps> {
   render() {
+    const { products } = this.props;
+
     return (
       <div className="page__cards cards view-mode-grid">
-        {this.data.products.map((product) => {
+        {products.map((product) => {
           return <Card key={product.id} item={product} />;
         })}
       </div>

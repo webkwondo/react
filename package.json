@@ -7,8 +7,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "test": "vitest",
-    "coverage": "vitest run --coverage",
+    "test": "vitest run --coverage",
+    "test:dev": "vitest",
     "eslint": "eslint . --ext .tsx,.ts",
     "eslint-fix": "eslint . --ext .tsx,.ts --fix",
     "stylelint": "stylelint src/**/*.scss",
@@ -24,6 +24,7 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.4.3",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
     "@typescript-eslint/eslint-plugin": "^5.55.0",
