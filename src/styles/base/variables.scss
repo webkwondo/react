@@ -1,0 +1,69 @@
+$font: 'Arial', sans-serif;
+
+$mobile-width: 320px;
+$mobile-mini-width: 335px;
+$mobile-midi-width: 400px;
+$mobile-max-width: 500px;
+$mobile-max-width-lb: $mobile-max-width - 1;
+$mobile-intermediate-width: 600px;
+$mobile-intermediate-2-width: 675px;
+$mobile-intermediate-3-width: 744px;
+$tablet-width: 768px;
+$tablet-width-lb: $tablet-width - 1;
+$tablet-intermediate-width: 880px;
+$tablet-intermediate-2-width: 925px;
+$tablet-landscape-width: 1024px;
+$tablet-landscape-width-lb: $tablet-landscape-width - 1;
+$laptop-width: 1280px;
+$laptop-width-lb: $laptop-width - 1;
+$desktop-width: 1440px;
+$desktop-width-lb: $desktop-width - 1;
+$desktop-max-width: 1920px;
+
+$white: #ffffff;
+$black: #000000;
+$grey: #98a2b3;
+$grey-dark: #101828;
+$grey-smolder: #232323;
+$grey-deep: #354053;
+$grey-darker: #667085;
+$grey-cloud: #a3adbd;
+$grey-smoke: #d0d5dd;
+$grey-spirit: #f5f5f5;
+$grey-puff: #f9fafb;
+$grey-lighter: #f2f4f7;
+$transparent: rgba(255, 255, 255, 0);
+$bg: $grey-spirit;
+
+$yellow: #fec84b;
+$red: #ed351d;
+$red-darker: darken($red, 3%);
+$red-light: #fff1f3;
+$orange: #dc6803;
+$orange-light: #fffaeb;
+
+$primary-color: $red;
+$primary-darker-color: $red-darker;
+$primary-light-color: $red-light;
+
+$text-primary: $primary-color;
+
+$text-dark: $grey-dark;
+$text-light: $white;
+$text-grey: $grey;
+$text-grey-lighter: $grey-lighter;
+$text-grey-deep: $grey-deep;
+$text-grey-darker: $grey-darker;
+$text-grey-smoke: $grey-smoke;
+$text-grey-cloud: $grey-cloud;
+$text-red: $red;
+$text-orange: $orange;
+
+$header-box-shadow: 0 12px 12px -4px rgba(16, 24, 40, 0.02);
+$hero-box-shadow: 0 20px 24px -4px rgba(16, 24, 40, 0.06),
+  0 12px 12px -4px rgba(16, 24, 40, 0.02);
+
+$basic-transition: color 0.3s, background-color 0.3s, border-color 0.3s, box-shadow 0.3s, opacity 0.3s;
+
+$style-transition-duration: 0.15s;
+$style-transition-function: ease-out;
