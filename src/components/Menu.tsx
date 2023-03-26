@@ -17,6 +17,11 @@ class Menu extends React.Component {
                 About
               </NavLink>
             </li>
+            <li className="menu__item">
+              <NavLink to="/account" className="menu__link link link--dark">
+                Account
+              </NavLink>
+            </li>
           </ul>
         </nav>
       </div>

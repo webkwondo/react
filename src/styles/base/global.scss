@@ -47,9 +47,6 @@ img {
 input,
 select,
 textarea {
-  appearance: none;
-  -webkit-appearance: none;
-
   @include text-16;
   color: $grey-dark;
   border: 1px solid $grey-smoke;

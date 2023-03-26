@@ -54,6 +54,7 @@
   &__meta,
   &__rating,
   &__stock,
+  &__info-line,
   &__description,
   &__footer {
     padding-left: 12px;
@@ -105,7 +106,8 @@
     margin-bottom: 8px;
   }
 
-  &__stock {
+  &__stock,
+  &__info-line {
     @include text-14;
     margin-bottom: 12px;
   }

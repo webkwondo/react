@@ -42,6 +42,7 @@ module.exports = {
     '@typescript-eslint/no-empty-function': 'off',
     '@typescript-eslint/no-explicit-any': 'error',
     '@typescript-eslint/no-var-reqiures': 'off',
+    'class-methods-use-this': 'off',
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/prefer-stateless-function': [0, { 'ignorePureComponents': true }],

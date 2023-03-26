@@ -22,3 +22,14 @@ interface IAppData {
   readonly skip?: number;
   readonly limit?: number;
 }
+
+interface IAccountData {
+  id: string;
+  name: string | null;
+  dob: string | null;
+  country: string | null;
+  policy: string | null;
+  notifications: string | null;
+  contact: string | null;
+  image: File | null;
+}

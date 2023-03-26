@@ -25,12 +25,10 @@ class SearchBar extends React.Component<object, ISearchBarState> {
     this.setSearchTerm(searchTerm);
   }
 
-  // eslint-disable-next-line class-methods-use-this
   getSearchTerm = () => {
     return localStorage.getItem('searchTerm') || '';
   };
 
-  // eslint-disable-next-line class-methods-use-this
   setSearchTerm = (searchTerm: string) => {
     localStorage.setItem('searchTerm', searchTerm);
   };
@@ -39,7 +37,6 @@ class SearchBar extends React.Component<object, ISearchBarState> {
     this.setState({ searchTerm: event.target?.value });
   };
 
-  // eslint-disable-next-line class-methods-use-this
   handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
   };
