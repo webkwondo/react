@@ -1,18 +1,18 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { describe, it, vi } from 'vitest';
-import HomePage from './HomePage';
+import AccountPage from './AccountPage';
 
-describe('Home Page', () => {
+describe('Account Page', () => {
   it('renders correct headline', () => {
     const handlePageChange = vi.fn();
 
-    render(<HomePage onPageChange={handlePageChange} />);
+    render(<AccountPage onPageChange={handlePageChange} />);
 
     expect(
       screen.getByRole('heading', {
         level: 1,
       })
-    ).toHaveTextContent(/Home/i);
+    ).toHaveTextContent(/Account/i);
   });
 });

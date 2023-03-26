@@ -13,6 +13,6 @@ describe('About Page', () => {
       screen.getByRole('heading', {
         level: 1,
       })
-    ).toHaveTextContent(/about/i);
+    ).toHaveTextContent(/About/i);
   });
 });

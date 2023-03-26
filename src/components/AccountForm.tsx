@@ -140,8 +140,7 @@ class AccountForm extends React.Component<object, IAccountFormState> {
 
   validatePolicy = (checkPolicy: FormDataEntryValue | null) => {
     if (!checkPolicy || typeof checkPolicy !== 'string') {
-      this.validationErrors['field-check-policy'] =
-        'Please consent to the use of your personal data';
+      this.validationErrors['field-check-policy'] = 'Please agree to the use of your personal data';
       return null;
     }
 
@@ -183,7 +182,7 @@ class AccountForm extends React.Component<object, IAccountFormState> {
           <h2 className="form__title">Add payment account</h2>
 
           <div className="form__group">
-            <label htmlFor="field-name">First and last name *</label>
+            <label htmlFor="field-name">Full name *</label>
             <input
               type="text"
               name="field-name"
@@ -252,7 +251,7 @@ class AccountForm extends React.Component<object, IAccountFormState> {
             <div className="checkbox-line">
               <input type="checkbox" id="field-check-policy" name="field-check-policy" required />
               <label htmlFor="field-check-policy">
-                I consent to the use of my personal data for the service&apos;s purpose *
+                I agree to the use of my personal data for the service&apos;s purpose *
               </label>
             </div>
 
@@ -320,7 +319,7 @@ class AccountForm extends React.Component<object, IAccountFormState> {
           </div>
 
           <button className="account-form__button button button--outlined" type="submit">
-            <span>Create account</span>
+            Create account
           </button>
 
           {isSubmitted && <div className="form__submit-success">Data has been saved</div>}
