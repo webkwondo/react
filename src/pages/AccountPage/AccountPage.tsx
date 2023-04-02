@@ -1,5 +1,5 @@
 import React from 'react';
-import AccountForm from '../components/AccountForm';
+import AccountForm from '../../components/AccountForm/AccountForm';
 
 interface IAccountPageProps {
   onPageChange: (pageName: string) => void;

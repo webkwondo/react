@@ -1,7 +1,7 @@
 import React from 'react';
-import SearchBar from '../components/SearchBar';
-import Cards from '../components/Cards';
-import appData from '../data/data.json';
+import SearchBar from '../../components/SearchBar/SearchBar';
+import Cards from '../../components/Cards/Cards';
+import appData from '../../data/data.json';
 
 interface IHomePageProps {
   onPageChange: (pageName: string) => void;

@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import Header from './components/Header';
-import HomePage from './pages/HomePage';
-import AboutPage from './pages/AboutPage';
-import AccountPage from './pages/AccountPage';
-import NotFoundPage from './pages/NotFoundPage';
-import Footer from './components/Footer';
+import Header from './components/Header/Header';
+import HomePage from './pages/HomePage/HomePage';
+import AboutPage from './pages/AboutPage/AboutPage';
+import AccountPage from './pages/AccountPage/AccountPage';
+import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
+import Footer from './components/Footer/Footer';
 
 interface IAppState {
   currentPageName: string;
