@@ -28,8 +28,8 @@ interface IAccountData {
   name: string | null;
   dob: string | null;
   country: string | null;
-  policy: string | null;
-  notifications: string | null;
+  policy: boolean;
+  notifications: boolean;
   contact: string | null;
   image: File | null;
 }

@@ -9,9 +9,9 @@ const testAccountData = {
   name: 'Jane Dawn',
   dob: '1991-05-03',
   country: 'USA',
-  policy: 'on',
-  notifications: null,
-  contact: 'email',
+  policy: true,
+  notifications: false,
+  contact: 'Email',
   image: null,
 };
 

@@ -5,18 +5,16 @@ interface IAccountCardsProps {
   accounts: IAccountData[];
 }
 
-class Cards extends React.Component<IAccountCardsProps> {
-  render() {
-    const { accounts } = this.props;
+const Cards: React.FC<IAccountCardsProps> = (props) => {
+  const { accounts } = props;
 
-    return (
-      <div className="account__cards cards view-mode-grid">
-        {accounts.map((account) => {
-          return <AccountCard key={account.id} item={account} />;
-        })}
-      </div>
-    );
-  }
-}
+  return (
+    <div className="account__cards cards view-mode-grid">
+      {accounts.map((account) => {
+        return <AccountCard key={account.id} item={account} />;
+      })}
+    </div>
+  );
+};
 
 export default Cards;

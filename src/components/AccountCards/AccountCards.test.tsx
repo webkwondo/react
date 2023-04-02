@@ -1,62 +1,55 @@
 import React from 'react';
+import { describe, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
+import 'jsdom-worker';
 import AccountCards from './AccountCards';
 
 const cards = [
   {
-    id: 1,
-    title: 'Test Product 1',
-    description: 'Test description 1',
-    price: 10,
-    discountPercentage: 10,
-    rating: 4,
-    stock: 10,
-    brand: 'Test Brand 1',
-    category: 'Test Category 1',
-    thumbnail: '',
-    images: ['images/products/1/1.jpg', 'images/products/1/2.jpg'],
+    id: '1',
+    name: 'Test Name 1',
+    dob: '2001-01-01',
+    country: 'Andorra',
+    policy: true,
+    notifications: false,
+    contact: 'Email',
+    image: new File([new Uint8Array(10)], 'profile1.jpg', { type: 'image/jpeg' }),
   },
   {
-    id: 2,
-    title: 'Test Product 2',
-    description: 'Test description 2',
-    price: 20,
-    discountPercentage: 10,
-    rating: 4,
-    stock: 20,
-    brand: 'Test Brand 2',
-    category: 'Test Category 2',
-    thumbnail: '',
-    images: ['images/products/2/1.jpg', 'images/products/2/2.jpg'],
+    id: '2',
+    name: 'Test Name 2',
+    dob: '2002-02-02',
+    country: 'Argentina',
+    policy: true,
+    notifications: true,
+    contact: 'Email',
+    image: new File([new Uint8Array(10)], 'profile2.jpg', { type: 'image/jpeg' }),
   },
   {
-    id: 3,
-    title: 'Test Product 3',
-    description: 'Test description 3',
-    price: 30,
-    discountPercentage: 10,
-    rating: 4,
-    stock: 30,
-    brand: 'Test Brand 3',
-    category: 'Test Category 3',
-    thumbnail: '',
-    images: ['images/products/3/1.jpg', 'images/products/3/2.jpg'],
+    id: '3',
+    name: 'Test Name 3',
+    dob: '2003-03-03',
+    country: 'Armenia',
+    policy: true,
+    notifications: false,
+    contact: 'Phone',
+    image: new File([new Uint8Array(10)], 'profile3.jpg', { type: 'image/jpeg' }),
   },
 ];
 
-describe('Cards component', () => {
-  it('should render the correct number of cards', () => {
-    const { getAllByTestId } = render(<AccountCards products={cards} />);
-    const renderedCards = getAllByTestId('card');
+describe('AccountCards component', () => {
+  it('should render the correct number of account cards', () => {
+    const { getAllByTestId } = render(<AccountCards accounts={cards} />);
+    const renderedCards = getAllByTestId('account-card');
 
     expect(renderedCards.length).toEqual(cards.length);
   });
 
   it('should display correct cards titles', () => {
-    render(<AccountCards products={cards} />);
-    const titleElement1 = screen.getByText('Test Product 1');
-    const titleElement2 = screen.getByText('Test Product 2');
-    const titleElement3 = screen.getByText('Test Product 3');
+    render(<AccountCards accounts={cards} />);
+    const titleElement1 = screen.getByText('Test Name 1');
+    const titleElement2 = screen.getByText('Test Name 2');
+    const titleElement3 = screen.getByText('Test Name 3');
     expect(titleElement1).toBeInTheDocument();
     expect(titleElement2).toBeInTheDocument();
     expect(titleElement3).toBeInTheDocument();

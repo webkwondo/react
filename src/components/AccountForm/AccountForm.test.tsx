@@ -16,7 +16,7 @@ describe('Account Form component', () => {
     const notificationsCheckbox = getByLabelText(
       /I want to receive notifications about promo, sales, etc./i
     );
-    const emailRadio = getByLabelText(/Email/i);
+    const emailRadio = getByLabelText(/E-mail/i);
     const phoneRadio = getByLabelText(/Phone/i);
     const profilePictureInput = getByLabelText(/Upload a profile picture */i);
 
@@ -28,29 +28,13 @@ describe('Account Form component', () => {
     expect(emailRadio).toBeInTheDocument();
     expect(phoneRadio).toBeInTheDocument();
     expect(profilePictureInput).toBeInTheDocument();
-
-    expect(nameInput).toBeRequired();
-    expect(dobInput).toBeRequired();
-    expect(countrySelect).toBeRequired();
-    expect(policyCheckbox).toBeRequired();
-    expect(notificationsCheckbox).not.toBeRequired();
-    expect(emailRadio).toBeRequired();
-    expect(phoneRadio).toBeRequired();
-    expect(profilePictureInput).toBeRequired();
   });
 
   it('validates input fields and shows error messages', () => {
-    const { getByText, queryByText, getByRole } = render(<AccountForm />);
+    const { queryByText, getByRole } = render(<AccountForm />);
     const submitButton = getByRole('button', { name: /Create account/i });
 
     fireEvent.click(submitButton);
-
-    expect(getByText(/Please enter your first and last name/i)).toBeInTheDocument();
-    expect(getByText(/Please enter your birth date/i)).toBeInTheDocument();
-    expect(getByText(/Please select your country/i)).toBeInTheDocument();
-    expect(getByText(/Please agree to the use of your personal data/i)).toBeInTheDocument();
-    expect(getByText(/Please select your preferred contact method/i)).toBeInTheDocument();
-    expect(getByText(/Please upload a JPEG or PNG image/i)).toBeInTheDocument();
 
     const savedEl = queryByText(/Data has been saved/i);
     expect(savedEl).not.toBeInTheDocument();

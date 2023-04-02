@@ -1,404 +1,226 @@
-import React from 'react';
+/* eslint-disable react/jsx-props-no-spreading */
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { v4 as uuidv4 } from 'uuid';
 import AccountCards from '../AccountCards/AccountCards';
-import { AccountFormFieldNames, ValidationErrors } from '../../constants';
-import {
-  validateContact,
-  validateCountry,
-  validateDob,
-  validateImage,
-  validateName,
-  validatePolicy,
-  validateNotifications,
-} from './AccountFormValidator';
 
 interface IAccountFormState {
-  validationErrors: ValidationErrors;
   isSubmitted: boolean;
   accounts: IAccountData[];
 }
 
-const AccountFormSettings = {
-  [AccountFormFieldNames.NAME]: {
-    id: AccountFormFieldNames.NAME,
-    name: AccountFormFieldNames.NAME,
-    type: 'text',
-    label: 'Full name *',
-    value: '',
-    minLength: 2,
-    maxLength: 100,
-    placeholder: 'First Last...',
-    isRequired: true,
-  },
-  [AccountFormFieldNames.DOB]: {
-    id: AccountFormFieldNames.DOB,
-    name: AccountFormFieldNames.DOB,
-    type: 'date',
-    label: 'Birth date *',
-    min: '1900-01-01',
-    max: '2005-03-27',
-    isRequired: true,
-  },
-  [AccountFormFieldNames.COUNTRY]: {
-    id: AccountFormFieldNames.COUNTRY,
-    name: AccountFormFieldNames.COUNTRY,
-    label: 'Country *',
-    isRequired: true,
-    options: [
-      {
-        id: 1,
-        value: 'Andorra',
-      },
-      {
-        id: 2,
-        value: 'Argentina',
-      },
-      {
-        id: 3,
-        value: 'Armenia',
-      },
-      {
-        id: 4,
-        value: 'Australia',
-      },
-      {
-        id: 5,
-        value: 'Belarus',
-      },
-      {
-        id: 6,
-        value: 'Canada',
-      },
-      {
-        id: 7,
-        value: 'India',
-      },
-      {
-        id: 8,
-        value: 'Kazakhstan',
-      },
-      {
-        id: 9,
-        value: 'Poland',
-      },
-      {
-        id: 10,
-        value: 'Russia',
-      },
-      {
-        id: 11,
-        value: 'Serbia',
-      },
-      {
-        id: 12,
-        value: 'Spain',
-      },
-      {
-        id: 13,
-        value: 'Turkey',
-      },
-      {
-        id: 14,
-        value: 'Ukraine',
-      },
-      {
-        id: 15,
-        value: 'USA',
-      },
-      {
-        id: 16,
-        value: 'Uzbekistan',
-      },
-      {
-        id: 17,
-        value: 'Vietnam',
-      },
-    ],
-  },
-  [AccountFormFieldNames.POLICY]: {
-    id: AccountFormFieldNames.POLICY,
-    name: AccountFormFieldNames.POLICY,
-    type: 'checkbox',
-    label: 'I agree to the use of my personal data for the service&apos;s purpose *',
-    isRequired: true,
-  },
-  [AccountFormFieldNames.NOTIFICATIONS]: {
-    id: AccountFormFieldNames.NOTIFICATIONS,
-    name: AccountFormFieldNames.NOTIFICATIONS,
-    type: 'checkbox',
-    label: 'I want to receive notifications about promo, sales, etc.',
-    checked: true,
-  },
-  [AccountFormFieldNames.CONTACT]: [
-    {
-      id: 'field-radio-contact-email',
-      name: AccountFormFieldNames.CONTACT,
-      type: 'radio',
-      label: 'Email',
-      value: 'email',
-      isRequired: true,
-    },
-    {
-      id: 'field-radio-contact-phone',
-      name: AccountFormFieldNames.CONTACT,
-      type: 'radio',
-      label: 'Phone',
-      value: 'phone',
-      isRequired: true,
-    },
-  ],
-  [AccountFormFieldNames.IMAGE]: {
-    id: AccountFormFieldNames.IMAGE,
-    name: AccountFormFieldNames.IMAGE,
-    type: 'file',
-    accept: 'image/png, image/jpeg',
-    label: 'Upload a profile picture *',
-    isRequired: true,
-  },
-};
+interface IAccountFormData {
+  fieldFullName: string;
+  fieldDob: string;
+  fieldCountry: string;
+  fieldCheckPolicy: boolean;
+  fieldCheckNotifications: boolean;
+  fieldContact: string;
+  fieldImage: FileList;
+}
 
-class AccountForm extends React.Component<object, IAccountFormState> {
-  formRef: React.RefObject<HTMLFormElement>;
+const AccountForm = () => {
+  const [accountFormState, setAccountFormState] = useState(() => {
+    const state: IAccountFormState = { isSubmitted: false, accounts: [] };
+    return state;
+  });
 
-  countrySelectRef: React.RefObject<HTMLSelectElement>;
+  const formRef: React.RefObject<HTMLFormElement> = React.createRef();
 
-  validationErrors: ValidationErrors = {};
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IAccountFormData>();
 
-  constructor(props: object) {
-    super(props);
-
-    this.state = {
-      validationErrors: { ...this.validationErrors },
-      isSubmitted: false,
-      accounts: [],
+  const onSubmit = (data: IAccountFormData) => {
+    const newAccount: IAccountData = {
+      id: uuidv4(),
+      name: data.fieldFullName,
+      dob: data.fieldDob,
+      country: data.fieldCountry,
+      policy: data.fieldCheckPolicy,
+      notifications: data.fieldCheckNotifications,
+      contact: data.fieldContact,
+      image: data.fieldImage[0],
     };
 
-    this.formRef = React.createRef();
-    this.countrySelectRef = React.createRef();
-  }
+    setAccountFormState((prevState: IAccountFormState) => {
+      return { isSubmitted: true, accounts: [...prevState.accounts, newAccount] };
+    });
 
-  handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const form = this.formRef.current;
-    if (!form) return;
-    const formData = new FormData(form);
-
-    this.validationErrors = {};
-
-    const name = formData.get(AccountFormFieldNames.NAME);
-    const nameValidated = validateName(name, this.validationErrors);
-
-    const dob = formData.get(AccountFormFieldNames.DOB);
-    const dobValidated = validateDob(dob, this.validationErrors);
-
-    const country = formData.get(AccountFormFieldNames.COUNTRY);
-    const countryValidated = validateCountry(country, this.validationErrors, this.countrySelectRef);
-
-    const policy = formData.get(AccountFormFieldNames.POLICY);
-    const policyValidated = validatePolicy(policy, this.validationErrors);
-
-    const notifications = formData.get(AccountFormFieldNames.NOTIFICATIONS);
-    const notificationsValidated = validateNotifications(notifications);
-
-    const contactRadios = formData.getAll(AccountFormFieldNames.CONTACT);
-    const contactValidated = validateContact(contactRadios, this.validationErrors);
-
-    const file = formData.get(AccountFormFieldNames.IMAGE);
-    const fileValidated = validateImage(file, this.validationErrors);
-
-    this.setState({ validationErrors: { ...this.validationErrors }, isSubmitted: false });
-
-    if (Object.keys(this.validationErrors).length === 0) {
-      const newAccount: IAccountData = {
-        id: uuidv4(),
-        name: nameValidated,
-        dob: dobValidated,
-        country: countryValidated,
-        policy: policyValidated,
-        notifications: notificationsValidated,
-        contact: contactValidated,
-        image: fileValidated,
-      };
-
-      this.setState((prevState) => {
-        return { isSubmitted: true, accounts: [...prevState.accounts, newAccount] };
-      });
-
-      form.reset();
-    }
+    const form = formRef.current;
+    if (form) form.reset();
   };
 
-  showError = (fieldName: keyof ValidationErrors) => {
-    const { validationErrors } = this.state;
+  return (
+    <>
+      <form className="account__form form" ref={formRef} onSubmit={handleSubmit(onSubmit)}>
+        <h2 className="form__title">Add payment account</h2>
 
-    if (validationErrors[fieldName]) {
-      return <div className="form__error">{validationErrors[fieldName]}</div>;
-    }
+        <div className="form__group">
+          <label htmlFor="fieldFullName">Full name *</label>
+          <input
+            type="text"
+            id="fieldFullName"
+            placeholder="First Last..."
+            {...register('fieldFullName', {
+              required: {
+                value: true,
+                message: 'Please enter your first and last name',
+              },
+              minLength: {
+                value: 2,
+                message: 'Must be at least 2 characters long',
+              },
+              maxLength: {
+                value: 100,
+                message: 'Maximum length is 100 characters',
+              },
+              pattern: {
+                value: /^[A-Z][a-z]+ [A-Z][a-z]+$/,
+                message: 'Please enter your first and last name with a capital letter',
+              },
+            })}
+          />
 
-    return '';
-  };
+          {errors.fieldFullName && (
+            <div className="form__error">{errors.fieldFullName.message}</div>
+          )}
+        </div>
 
-  render() {
-    const { isSubmitted, accounts } = this.state;
+        <div className="form__group">
+          <label htmlFor="fieldDob">Birth date *</label>
+          <input
+            type="date"
+            id="fieldDob"
+            {...register('fieldDob', {
+              required: {
+                value: true,
+                message: 'Please enter your birth date',
+              },
+              min: {
+                value: '1900-01-01',
+                message: 'Birth date must be between 1900-01-01 and 2005-03-27',
+              },
+              max: {
+                value: '2005-03-27',
+                message: 'Birth date must be between 1900-01-01 and 2005-03-27',
+              },
+            })}
+          />
 
-    return (
-      <>
-        <form
-          className="account__form form"
-          action="/"
-          method="POST"
-          encType="multipart/form-data"
-          noValidate
-          ref={this.formRef}
-          onSubmit={this.handleSubmit}
-        >
-          <h2 className="form__title">Add payment account</h2>
+          {errors.fieldDob && <div className="form__error">{errors.fieldDob.message}</div>}
+        </div>
 
-          <div className="form__group">
-            <label htmlFor={AccountFormSettings[AccountFormFieldNames.NAME].id}>
-              {AccountFormSettings[AccountFormFieldNames.NAME].label}
+        <div className="form__group">
+          <label htmlFor="fieldCountry">Country *</label>
+          <select
+            id="fieldCountry"
+            {...register('fieldCountry', {
+              required: {
+                value: true,
+                message: 'Please select your country',
+              },
+            })}
+          >
+            <option value="Andorra">Andorra</option>
+            <option value="Argentina">Argentina</option>
+            <option value="Armenia">Armenia</option>
+          </select>
+
+          {errors.fieldCountry && <div className="form__error">{errors.fieldCountry.message}</div>}
+        </div>
+
+        <div className="form__group">
+          <div className="checkbox-line">
+            <input
+              type="checkbox"
+              id="fieldCheckPolicy"
+              {...register('fieldCheckPolicy', {
+                required: {
+                  value: true,
+                  message: 'Please agree to the use of your personal data',
+                },
+              })}
+            />
+            <label htmlFor="fieldCheckPolicy">
+              I agree to the use of my personal data for the service&apos;s purpose *
             </label>
-            <input
-              type={AccountFormSettings[AccountFormFieldNames.NAME].type}
-              name={AccountFormSettings[AccountFormFieldNames.NAME].name}
-              id={AccountFormSettings[AccountFormFieldNames.NAME].id}
-              defaultValue={AccountFormSettings[AccountFormFieldNames.NAME].value}
-              minLength={AccountFormSettings[AccountFormFieldNames.NAME].minLength}
-              maxLength={AccountFormSettings[AccountFormFieldNames.NAME].maxLength}
-              placeholder={AccountFormSettings[AccountFormFieldNames.NAME].placeholder}
-              required={AccountFormSettings[AccountFormFieldNames.NAME].isRequired}
-            />
-            {this.showError(AccountFormFieldNames.NAME)}
           </div>
 
-          <div className="form__group">
-            <label htmlFor={AccountFormSettings[AccountFormFieldNames.DOB].id}>
-              {AccountFormSettings[AccountFormFieldNames.DOB].label}
+          {errors.fieldCheckPolicy && (
+            <div className="form__error">{errors.fieldCheckPolicy.message}</div>
+          )}
+
+          <div className="checkbox-line">
+            <input
+              type="checkbox"
+              id="fieldCheckNotifications"
+              checked
+              {...register('fieldCheckNotifications', {})}
+            />
+            <label htmlFor="fieldCheckNotifications">
+              I want to receive notifications about promo, sales, etc.
             </label>
+          </div>
+        </div>
+
+        <div className="form__group">
+          <p className="form__group-title">Preferred contact *</p>
+
+          <div className="radio-line">
             <input
-              type={AccountFormSettings[AccountFormFieldNames.DOB].type}
-              name={AccountFormSettings[AccountFormFieldNames.DOB].name}
-              id={AccountFormSettings[AccountFormFieldNames.DOB].id}
-              min={AccountFormSettings[AccountFormFieldNames.DOB].min}
-              max={AccountFormSettings[AccountFormFieldNames.DOB].max}
-              required={AccountFormSettings[AccountFormFieldNames.DOB].isRequired}
+              type="radio"
+              id="fieldContact1"
+              value="Email"
+              {...register('fieldContact', { required: true })}
             />
-            {this.showError(AccountFormFieldNames.DOB)}
+            <label htmlFor="fieldContact1">E-mail</label>
           </div>
 
-          <div className="form__group">
-            <label htmlFor={AccountFormFieldNames.COUNTRY}>Country *</label>
-
-            <select
-              name={AccountFormFieldNames.COUNTRY}
-              id={AccountFormFieldNames.COUNTRY}
-              required
-              ref={this.countrySelectRef}
-            >
-              <option defaultValue="">-- Please choose an option --</option>
-              <option defaultValue="andorra">Andorra</option>
-              <option defaultValue="argentina">Argentina</option>
-              <option defaultValue="armenia">Armenia</option>
-              <option defaultValue="australia">Australia</option>
-              <option defaultValue="belarus">Belarus</option>
-              <option defaultValue="canada">Canada</option>
-              <option defaultValue="india">India</option>
-              <option defaultValue="kazakhstan">Kazakhstan</option>
-              <option defaultValue="poland">Poland</option>
-              <option defaultValue="russia">Russia</option>
-              <option defaultValue="serbia">Serbia</option>
-              <option defaultValue="spain">Spain</option>
-              <option defaultValue="turkey">Turkey</option>
-              <option defaultValue="ukraine">Ukraine</option>
-              <option defaultValue="usa">USA</option>
-              <option defaultValue="uzbekistan">Uzbekistan</option>
-              <option defaultValue="vietnam">Vietnam</option>
-            </select>
-
-            {this.showError(AccountFormFieldNames.COUNTRY)}
-          </div>
-
-          <div className="form__group">
-            <div className="checkbox-line">
-              <input
-                type="checkbox"
-                id={AccountFormFieldNames.POLICY}
-                name={AccountFormFieldNames.POLICY}
-                required
-              />
-              <label htmlFor={AccountFormFieldNames.POLICY}>
-                I agree to the use of my personal data for the service&apos;s purpose *
-              </label>
-            </div>
-
-            {this.showError(AccountFormFieldNames.POLICY)}
-
-            <div className="checkbox-line">
-              <input
-                type="checkbox"
-                id={AccountFormFieldNames.NOTIFICATIONS}
-                name={AccountFormFieldNames.NOTIFICATIONS}
-                defaultChecked
-              />
-              <label htmlFor={AccountFormFieldNames.NOTIFICATIONS}>
-                I want to receive notifications about promo, sales, etc.
-              </label>
-            </div>
-          </div>
-
-          <div className="form__group">
-            <p className="form__group-title">Preferred contact *</p>
-
-            <div className="radio-line">
-              <input
-                type="radio"
-                id="field-radio-contact-email"
-                name={AccountFormFieldNames.CONTACT}
-                defaultValue="email"
-                required
-              />
-              <label htmlFor="field-radio-contact-email">Email</label>
-            </div>
-
-            <div className="radio-line">
-              <input
-                type="radio"
-                id="field-radio-contact-phone"
-                name={AccountFormFieldNames.CONTACT}
-                defaultValue="phone"
-                required
-              />
-              <label htmlFor="field-radio-contact-phone">Phone</label>
-            </div>
-
-            {this.showError(AccountFormFieldNames.CONTACT)}
-          </div>
-
-          <div className="form__group">
-            <label htmlFor={AccountFormFieldNames.IMAGE}>Upload a profile picture *</label>
-
+          <div className="radio-line">
             <input
-              type="file"
-              id={AccountFormFieldNames.IMAGE}
-              name={AccountFormFieldNames.IMAGE}
-              accept="image/png, image/jpeg"
-              required
+              type="radio"
+              id="fieldContact2"
+              value="Phone"
+              {...register('fieldContact', { required: true })}
             />
-
-            {this.showError(AccountFormFieldNames.IMAGE)}
+            <label htmlFor="fieldContact2">Phone</label>
           </div>
 
-          <button className="account-form__button button button--outlined" type="submit">
-            Create account
-          </button>
+          {errors.fieldContact && (
+            <div className="form__error">Please select your preferred contact method</div>
+          )}
+        </div>
 
-          {isSubmitted && <div className="form__submit-success">Data has been saved</div>}
-        </form>
+        <div className="form__group">
+          <label htmlFor="fieldContact2">Upload a profile picture *</label>
+          <input
+            type="file"
+            accept="image/png, image/jpeg"
+            {...register('fieldImage', {
+              required: {
+                value: true,
+                message: 'Please upload a JPEG or PNG image',
+              },
+            })}
+          />
+          {errors.fieldImage && <div className="form__error">{errors.fieldImage.message}</div>}
+        </div>
 
-        {!!accounts.length && <AccountCards accounts={accounts} />}
-      </>
-    );
-  }
-}
+        <button className="account-form__button button button--outlined" type="submit">
+          Create account
+        </button>
+
+        {accountFormState.isSubmitted && (
+          <div className="form__submit-success">Data has been saved</div>
+        )}
+      </form>
+
+      {!!accountFormState.accounts.length && <AccountCards accounts={accountFormState.accounts} />}
+    </>
+  );
+};
 
 export default AccountForm;
