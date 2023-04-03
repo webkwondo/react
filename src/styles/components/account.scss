@@ -1,0 +1,93 @@
+.account {
+  &__form {
+    max-width: 700px;
+    text-align: left;
+
+    .form__title {
+      padding: 0;
+      margin: 0 0 20px 0;
+
+      @include tablet-landscape {
+        font-size: 28px;
+        line-height: 36px;
+      }
+
+      @include mobile-intermediate-2 {
+        font-size: 24px;
+        line-height: 32px;
+      }
+    }
+
+    .form__group {
+      margin-bottom: 24px;
+    }
+
+    .form__action {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      align-items: stretch;
+    }
+
+    .field-hint,
+    .form__error {
+      @include text-14;
+      color: $red-darker;
+    }
+
+    .form__submit-success {
+      border: 2px solid $green;
+      padding: 20px;
+      margin-top: 24px;
+    }
+
+    label,
+    input,
+    select,
+    textarea {
+      display: block;
+      width: 100%;
+    }
+
+    textarea {
+      resize: vertical;
+      max-height: 200px;
+    }
+
+    label,
+    .form__group-title,
+    .form__group-note {
+      padding-left: 4px;
+      margin-bottom: 8px;
+    }
+
+    .form__group-note {
+      @include text-14;
+      color: $text-grey-darker;
+    }
+
+    input:not(:last-child),
+    select:not(:last-child),
+    textarea:not(:last-child) {
+      margin-bottom: 9px;
+    }
+
+    .checkbox-line,
+    .radio-line {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      flex-wrap: nowrap;
+      gap: 5px;
+
+      input {
+        width: auto;
+      }
+    }
+  }
+
+  &__cards {
+    margin-top: 32px;
+  }
+}

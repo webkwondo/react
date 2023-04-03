@@ -1,0 +1,105 @@
+.button {
+  @include btn-reset;
+  display: block;
+  font-weight: 500;
+  text-transform: uppercase;
+  text-align: center;
+  color: $text-dark;
+  background-color: $white;
+  border: 1px solid $grey-smoke;
+  border-radius: 2px;
+  padding: 9px 18px;
+  cursor: pointer;
+  transition: background-color $style-transition-duration $style-transition-function,
+    color $style-transition-duration $style-transition-function;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: $text-primary;
+    background-color: $grey-puff;
+
+    svg {
+      fill: $text-primary;
+    }
+  }
+
+  &:disabled,
+  &.disabled {
+    color: $grey-cloud;
+    background-color: $white;
+    cursor: default;
+    pointer-events: none;
+
+    svg {
+      fill: $grey-cloud;
+    }
+  }
+}
+
+@mixin button-clean {
+  background: $transparent;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.button--clean {
+  @include button-clean;
+}
+
+.button--outlined {
+  background: $transparent;
+  border: 1px solid $grey-smoke;
+}
+
+.button--icon {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+
+  .button__icon {
+    display: inline-flex;
+    height: 100%;
+    margin-right: 8px;
+
+    svg {
+      display: block;
+    }
+  }
+}
+
+.button--primary {
+  background: $primary-color;
+  color: $text-light;
+  border: 0;
+  padding: 10px 18px;
+
+  svg {
+    fill: $text-light;
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: $text-light;
+    background-color: $primary-darker-color;
+
+    svg {
+      fill: $text-light;
+    }
+  }
+}
+
+.button--large {
+  padding: 14px 36px;
+}
+
+.button--small {
+  @include text-14;
+  padding: 4px 14px;
+}

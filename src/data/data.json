@@ -1,0 +1,137 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "title": "Repellat animi sit sapiente debitis laborum explicabo",
+      "description": "Quos nobis nesciunt veniam illo dolore reprehenderit ipsum. Iusto reiciendis est magnam dolorum incidunt sequi labore dignissimos architecto. Amet nesciunt quam deserunt cumque consequatur assumenda ullam necessitatibus beatae quae possimus ex, quidem nulla architecto dolorem error eveniet sint praesentium ducimus facere quis qui fugiat iste. Expedita molestias quod iusto perferendis. Recusandae praesentium, accusantium itaque eius quasi quod doloremque voluptas est perspiciatis, reprehenderit cumque dolorem alias placeat aliquam quos ipsam accusamus esse ipsa aspernatur. Alias libero soluta vel consequatur laborum.",
+      "price": 19.55,
+      "discountPercentage": 0,
+      "rating": 4.53,
+      "stock": 56,
+      "brand": "Brand 1",
+      "category": "Category 1",
+      "thumbnail": "",
+      "images": [
+        "images/products/1/1.jpg",
+        "images/products/1/2.jpg",
+        "images/products/1/3.jpg",
+        "images/products/1/4.jpg",
+        "images/products/1/5.jpg"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Iste, quasi ducimus, ea sapiente pariatur vel, optio",
+      "description": "Dolorem neque sit repellat impedit, placeat error et culpa blanditiis earum minus. Dolorum excepturi fugiat obcaecati repellat, corrupti esse consequuntur, iste temporibus incidunt ad. Optio alias beatae nemo. Consectetur. Reiciendis hic odio vitae, quisquam neque fugit, temporibus officia rem ab, corrupti necessitatibus ipsum. Ducimus pariatur placeat non reiciendis! Magni, fuga. Quis inventore consequatur id animi quae ab. Doloribus dolor tempora modi quam, cum minus asperiores reprehenderit nam quisquam.",
+      "price": 58.50,
+      "discountPercentage": 7,
+      "rating": 4.76,
+      "stock": 23,
+      "brand": "Brand 2",
+      "category": "Category 2",
+      "thumbnail": "",
+      "images": [
+        "images/products/2/1.jpg",
+        "images/products/2/2.jpg",
+        "images/products/2/3.jpg",
+        "images/products/2/4.jpg",
+        "images/products/2/5.jpg"
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Officia nam consequuntur expedita, quis a ducimus doloremque",
+      "description": "Commodi iste voluptatem voluptatum harum veritatis porro sapiente veniam nemo voluptatibus! Facilis qui porro ipsa ipsam impedit. Amet, placeat. Omnis nostrum saepe minima, tempore iusto ut optio beatae aliquid eos quod qui, officiis aliquam. Deleniti tempora, nesciunt delectus debitis at aspernatur eveniet eos optio ex sapiente nihil dolore ipsam. Facere, vel! Reiciendis velit mollitia iusto autem ratione deleniti dolores doloremque quae sit, nobis quo ullam cum. Amet repudiandae in quibusdam, maiores laborum id ipsum! Tempora voluptatem architecto quam quo.",
+      "price": 48.78,
+      "discountPercentage": 50,
+      "rating": 4.39,
+      "stock": 71,
+      "brand": "Brand 3",
+      "category": "Category 3",
+      "thumbnail": "",
+      "images": [
+        "images/products/3/1.jpg",
+        "images/products/3/2.jpg",
+        "images/products/3/3.jpg",
+        "images/products/3/4.jpg",
+        "images/products/3/5.jpg"
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Ipsam, eveniet tempora tempore laborum",
+      "description": "Sapiente vel nostrum voluptatum corporis, dicta magni quae, odio pariatur dolorem eligendi quos illo, minima at nihil ipsam expedita! Animi mollitia commodi error sint quis, esse maiores ipsa ea ex! Ducimus quis deserunt voluptate eum eius dolor minus, sequi exercitationem ad harum sit repellendus unde, accusamus ullam sunt assumenda qui a dolorum quisquam voluptatem iusto dignissimos reprehenderit. Ad, id repellat? Eum, dignissimos ea autem dolorem voluptas, doloribus reprehenderit possimus quidem est provident aliquam hic ratione eos dolores nesciunt cumque non accusamus recusandae laborum nobis! Minus architecto sapiente fugit! Eveniet, accusantium.",
+      "price": 60.00,
+      "discountPercentage": 20,
+      "rating": 4.1,
+      "stock": 137,
+      "brand": "Brand 4",
+      "category": "Category 4",
+      "thumbnail": "",
+      "images": [
+        "images/products/4/1.jpg",
+        "images/products/4/2.jpg",
+        "images/products/4/3.jpg",
+        "images/products/4/4.jpg",
+        "images/products/4/5.jpg"
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Velit officia expedita ipsum quia nam exercitationem",
+      "description": "Veniam odio ipsam rem at officia delectus quia ullam eum? Sequi eius similique hic repellendus laboriosam exercitationem, praesentium rerum, eligendi vitae, quasi ducimus officia ratione sapiente omnis? Facilis aliquid corrupti culpa ab commodi amet assumenda minus. Voluptas repudiandae itaque, corrupti est cumque, odio magnam dolorum deleniti recusandae laudantium delectus quaerat molestiae qui veniam accusamus. Recusandae, nihil hic! Odio, incidunt accusamus! Nam quos, earum quisquam laudantium hic harum voluptatibus modi in culpa nobis architecto ipsam dignissimos consequuntur. Eos facilis quam quasi dicta aperiam perspiciatis maiores? Odit eius saepe dolor ut rerum.",
+      "price": 33.00,
+      "discountPercentage": 20,
+      "rating": 4.35,
+      "stock": 62,
+      "brand": "Brand 5",
+      "category": "Category 5",
+      "thumbnail": "",
+      "images": [
+        "images/products/5/1.jpg",
+        "images/products/5/2.jpg",
+        "images/products/5/3.jpg",
+        "images/products/5/4.jpg",
+        "images/products/5/5.jpg"
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Itaque possimus, tenetur aliquid culpa sint est rem",
+      "description": "Autem quos odio harum cumque eos tenetur, amet veritatis nulla id esse iusto distinctio assumenda facilis sequi. Praesentium eaque vero modi quaerat debitis reprehenderit perferendis voluptatem autem amet, voluptatibus atque? Qui ipsa, sed optio rem itaque est laborum perferendis id minima et delectus. Minus totam odio accusamus nulla corporis quibusdam, porro iusto. Modi sint deleniti minus, saepe cumque laudantium necessitatibus. Iure, deleniti quos! Minus dolorem earum nulla totam voluptatum numquam id maiores fugiat debitis blanditiis ut dolorum ducimus, quaerat atque nam ipsam. Iste, quas error sed suscipit eligendi porro voluptatibus.",
+      "price": 48.99,
+      "discountPercentage": 40,
+      "rating": 3.89,
+      "stock": 192,
+      "brand": "Brand 6",
+      "category": "Category 6",
+      "thumbnail": "",
+      "images": [
+        "images/products/6/1.jpg",
+        "images/products/6/2.jpg",
+        "images/products/6/3.jpg",
+        "images/products/6/4.jpg",
+        "images/products/6/5.jpg"
+      ]
+    }
+  ],
+  "total": 6,
+  "skip": 0,
+  "limit": 6,
+  "categories": [
+    "Category 1",
+    "Category 2",
+    "Category 3",
+    "Category 4",
+    "Category 5",
+    "Category 6"
+  ],
+  "brands": [
+    "Brand 1",
+    "Brand 2",
+    "Brand 3",
+    "Brand 4",
+    "Brand 5",
+    "Brand 6"
+  ]
+}
