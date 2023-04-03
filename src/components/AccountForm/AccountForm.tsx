@@ -5,7 +5,6 @@ import { v4 as uuidv4 } from 'uuid';
 import AccountCards from '../AccountCards/AccountCards';
 
 interface IAccountFormState {
-  isSubmitted: boolean;
   accounts: IAccountData[];
 }
 
@@ -21,16 +20,15 @@ interface IAccountFormData {
 
 const AccountForm = () => {
   const [accountFormState, setAccountFormState] = useState(() => {
-    const state: IAccountFormState = { isSubmitted: false, accounts: [] };
+    const state: IAccountFormState = { accounts: [] };
     return state;
   });
-
-  const formRef: React.RefObject<HTMLFormElement> = React.createRef();
 
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    reset,
+    formState: { errors, isSubmitted, isSubmitSuccessful },
   } = useForm<IAccountFormData>();
 
   const onSubmit = (data: IAccountFormData) => {
@@ -46,16 +44,15 @@ const AccountForm = () => {
     };
 
     setAccountFormState((prevState: IAccountFormState) => {
-      return { isSubmitted: true, accounts: [...prevState.accounts, newAccount] };
+      return { accounts: [...prevState.accounts, newAccount] };
     });
 
-    const form = formRef.current;
-    if (form) form.reset();
+    reset();
   };
 
   return (
     <>
-      <form className="account__form form" ref={formRef} onSubmit={handleSubmit(onSubmit)}>
+      <form className="account__form form" onSubmit={handleSubmit(onSubmit)}>
         <h2 className="form__title">Add payment account</h2>
 
         <div className="form__group">
@@ -170,7 +167,6 @@ const AccountForm = () => {
             <input
               type="checkbox"
               id="fieldCheckNotifications"
-              checked
               {...register('fieldCheckNotifications', {})}
             />
             <label htmlFor="fieldCheckNotifications">
@@ -232,7 +228,7 @@ const AccountForm = () => {
           Create account
         </button>
 
-        {accountFormState.isSubmitted && (
+        {isSubmitted && isSubmitSuccessful && (
           <div className="form__submit-success">Data has been saved</div>
         )}
       </form>

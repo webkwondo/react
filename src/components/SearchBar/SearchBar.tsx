@@ -5,9 +5,23 @@ const SearchBar = () => {
     return localStorage.getItem('searchTerm') || '';
   });
 
+  const searchTermRef = React.useRef<string>(searchTerm);
+
   useEffect(() => {
-    localStorage.setItem('searchTerm', searchTerm);
+    searchTermRef.current = searchTerm;
   }, [searchTerm]);
+
+  useEffect(() => {
+    const term = localStorage.getItem('searchTerm');
+
+    if (term !== null) {
+      setSearchTerm(term);
+    }
+
+    return () => {
+      localStorage.setItem('searchTerm', searchTermRef.current);
+    };
+  }, []);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
