@@ -5,8 +5,8 @@ import 'jsdom-worker';
 import AccountForm from './AccountForm';
 
 describe('Account Form component', () => {
-  it('renders form inputs correctly', () => {
-    const { getByLabelText } = render(<AccountForm />);
+  it('renders form inputs and submit button correctly', () => {
+    const { getByLabelText, getByRole } = render(<AccountForm />);
     const nameInput = getByLabelText(/Full name */i);
     const dobInput = getByLabelText(/Birth date */i);
     const countrySelect = getByLabelText(/Country */i);
@@ -19,6 +19,7 @@ describe('Account Form component', () => {
     const emailRadio = getByLabelText(/E-mail/i);
     const phoneRadio = getByLabelText(/Phone/i);
     const profilePictureInput = getByLabelText(/Upload a profile picture */i);
+    const submitButton = getByRole('button', { name: /Create account/i });
 
     expect(nameInput).toBeInTheDocument();
     expect(dobInput).toBeInTheDocument();
@@ -28,13 +29,16 @@ describe('Account Form component', () => {
     expect(emailRadio).toBeInTheDocument();
     expect(phoneRadio).toBeInTheDocument();
     expect(profilePictureInput).toBeInTheDocument();
+    expect(submitButton).toBeInTheDocument();
   });
 
-  it('validates input fields and shows error messages', () => {
-    const { queryByText, getByRole } = render(<AccountForm />);
+  it('validates input fields and shows error messages', async () => {
+    const { queryByText, getByRole, findAllByRole } = render(<AccountForm />);
     const submitButton = getByRole('button', { name: /Create account/i });
 
-    fireEvent.click(submitButton);
+    fireEvent.submit(submitButton);
+
+    expect(await findAllByRole('alert')).toHaveLength(6);
 
     const savedEl = queryByText(/Data has been saved/i);
     expect(savedEl).not.toBeInTheDocument();

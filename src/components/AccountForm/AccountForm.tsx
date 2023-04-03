@@ -85,7 +85,9 @@ const AccountForm = () => {
           />
 
           {errors.fieldFullName && (
-            <div className="form__error">{errors.fieldFullName.message}</div>
+            <div className="form__error" role="alert">
+              {errors.fieldFullName.message}
+            </div>
           )}
         </div>
 
@@ -110,7 +112,11 @@ const AccountForm = () => {
             })}
           />
 
-          {errors.fieldDob && <div className="form__error">{errors.fieldDob.message}</div>}
+          {errors.fieldDob && (
+            <div className="form__error" role="alert">
+              {errors.fieldDob.message}
+            </div>
+          )}
         </div>
 
         <div className="form__group">
@@ -124,12 +130,17 @@ const AccountForm = () => {
               },
             })}
           >
+            <option value="">-- Please choose an option --</option>
             <option value="Andorra">Andorra</option>
             <option value="Argentina">Argentina</option>
             <option value="Armenia">Armenia</option>
           </select>
 
-          {errors.fieldCountry && <div className="form__error">{errors.fieldCountry.message}</div>}
+          {errors.fieldCountry && (
+            <div className="form__error" role="alert">
+              {errors.fieldCountry.message}
+            </div>
+          )}
         </div>
 
         <div className="form__group">
@@ -150,7 +161,9 @@ const AccountForm = () => {
           </div>
 
           {errors.fieldCheckPolicy && (
-            <div className="form__error">{errors.fieldCheckPolicy.message}</div>
+            <div className="form__error" role="alert">
+              {errors.fieldCheckPolicy.message}
+            </div>
           )}
 
           <div className="checkbox-line">
@@ -190,7 +203,9 @@ const AccountForm = () => {
           </div>
 
           {errors.fieldContact && (
-            <div className="form__error">Please select your preferred contact method</div>
+            <div className="form__error" role="alert">
+              Please select your preferred contact method
+            </div>
           )}
         </div>
 
@@ -206,7 +221,11 @@ const AccountForm = () => {
               },
             })}
           />
-          {errors.fieldImage && <div className="form__error">{errors.fieldImage.message}</div>}
+          {errors.fieldImage && (
+            <div className="form__error" role="alert">
+              {errors.fieldImage.message}
+            </div>
+          )}
         </div>
 
         <button className="account-form__button button button--outlined" type="submit">
