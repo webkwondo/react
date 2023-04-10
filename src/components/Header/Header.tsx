@@ -1,11 +1,11 @@
 import React from 'react';
 import Menu from '../Menu/Menu';
 
-interface IHeaderProps {
+interface HeaderProps {
   currentPageName: string;
 }
 
-const Header: React.FC<IHeaderProps> = (props) => {
+const Header: React.FC<HeaderProps> = (props) => {
   const { currentPageName } = props;
 
   return (

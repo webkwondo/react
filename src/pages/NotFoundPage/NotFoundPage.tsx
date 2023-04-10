@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-interface INotFoundPageProps {
+interface NotFoundPageProps {
   onPageChange: (pageName: string) => void;
 }
 
-const NotFoundPage: React.FC<INotFoundPageProps> = (props) => {
+const NotFoundPage: React.FC<NotFoundPageProps> = (props) => {
   const { onPageChange } = props;
 
   useEffect(() => {

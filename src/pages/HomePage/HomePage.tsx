@@ -1,20 +1,31 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import Cards from '../../components/Cards/Cards';
-import appData from '../../data/data.json';
+import { getData } from '../../api/api';
+import ProgressIndicator from '../../components/ProgressIndicator/ProgressIndicator';
+import { wait } from '../../components/Utils/Utils';
 
-interface IHomePageProps {
+interface HomePageProps {
   onPageChange: (pageName: string) => void;
 }
 
-const HomePage: React.FC<IHomePageProps> = (props) => {
+const HomePage: React.FC<HomePageProps> = (props) => {
   const { onPageChange } = props;
-  const data: IAppData = appData as IAppData;
-  const { products } = data;
+  const [isLoading, setIsLoading] = useState(false);
+  const [items, setItems] = useState([]);
 
   useEffect(() => {
     onPageChange('Home');
   }, [onPageChange]);
+
+  const handleSearch = async (searchTerm: string) => {
+    setIsLoading(true);
+    await wait(2);
+    const data = await getData(searchTerm);
+    if (!data) setItems([]);
+    if (data) setItems(data.results);
+    setIsLoading(false);
+  };
 
   return (
     <main className="page__main page__main--home">
@@ -27,8 +38,8 @@ const HomePage: React.FC<IHomePageProps> = (props) => {
 
         <section className="page__home home">
           <div className="home__container container">
-            <SearchBar />
-            <Cards products={products} />
+            <SearchBar onSearch={handleSearch} />
+            {isLoading ? <ProgressIndicator isLoading={isLoading} /> : <Cards items={items} />}
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo veniam eligendi
               perspiciatis harum maxime consequatur dolore magnam explicabo eos, blanditiis a

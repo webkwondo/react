@@ -47,6 +47,7 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'react/prefer-stateless-function': [0, { 'ignorePureComponents': true }],
     'react/function-component-definition': [2, { "namedComponents": "arrow-function" }],
+    'jsx-a11y/no-static-element-interactions': 'off',
     'jsx-a11y/label-has-associated-control': ['error', {
       'required': {
         'some': ['nesting', 'id']

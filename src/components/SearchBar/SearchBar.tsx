@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
-const SearchBar = () => {
+interface SearchBarProps {
+  onSearch: (searchTerm: string) => void;
+}
+
+const SearchBar: React.FC<SearchBarProps> = (props) => {
+  const { onSearch } = props;
+
   const [searchTerm, setSearchTerm] = useState(() => {
     return localStorage.getItem('searchTerm') || '';
   });
@@ -16,11 +22,13 @@ const SearchBar = () => {
 
     if (term !== null) {
       setSearchTerm(term);
+      onSearch(term);
     }
 
     return () => {
       localStorage.setItem('searchTerm', searchTermRef.current);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,6 +37,7 @@ const SearchBar = () => {
 
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    onSearch(searchTerm);
   };
 
   return (
@@ -48,7 +57,7 @@ const SearchBar = () => {
             type="text"
             name="q"
             id="search-field"
-            placeholder="Search..."
+            placeholder="Type something then press Enter..."
             autoComplete="off"
             value={searchTerm}
             onChange={handleInputChange}

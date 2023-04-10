@@ -4,11 +4,11 @@ import { useForm } from 'react-hook-form';
 import { v4 as uuidv4 } from 'uuid';
 import AccountCards from '../AccountCards/AccountCards';
 
-interface IAccountFormState {
-  accounts: IAccountData[];
+interface AccountFormState {
+  accounts: AccountData[];
 }
 
-interface IAccountFormData {
+interface AccountFormData {
   fieldFullName: string;
   fieldDob: string;
   fieldCountry: string;
@@ -20,7 +20,7 @@ interface IAccountFormData {
 
 const AccountForm = () => {
   const [accountFormState, setAccountFormState] = useState(() => {
-    const state: IAccountFormState = { accounts: [] };
+    const state: AccountFormState = { accounts: [] };
     return state;
   });
 
@@ -29,10 +29,10 @@ const AccountForm = () => {
     handleSubmit,
     reset,
     formState: { errors, isSubmitted, isSubmitSuccessful },
-  } = useForm<IAccountFormData>();
+  } = useForm<AccountFormData>();
 
-  const onSubmit = (data: IAccountFormData) => {
-    const newAccount: IAccountData = {
+  const onSubmit = (data: AccountFormData) => {
+    const newAccount: AccountData = {
       id: uuidv4(),
       name: data.fieldFullName,
       dob: data.fieldDob,
@@ -43,7 +43,7 @@ const AccountForm = () => {
       image: data.fieldImage[0],
     };
 
-    setAccountFormState((prevState: IAccountFormState) => {
+    setAccountFormState((prevState: AccountFormState) => {
       return { accounts: [...prevState.accounts, newAccount] };
     });
 

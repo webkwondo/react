@@ -1,80 +1,43 @@
 import React from 'react';
+import { cropPhrase, formatPhrase } from '../Utils/Utils';
 
-interface ICardProps {
-  item: IProduct;
+interface CardProps {
+  item: Item;
+  onCardClick: (event: React.MouseEvent<HTMLElement> | MouseEvent, item: Item) => void;
 }
 
-const Card: React.FC<ICardProps> = (props) => {
-  const { item } = props;
-  const { title, brand, category, rating, stock, description, price, discountPercentage } = item;
+const Card: React.FC<CardProps> = (props) => {
+  const { item, onCardClick } = props;
+  const { urls, alt_description: altDescription, likes, user } = item;
+  const { small } = urls;
+  const { username } = user;
+  const formattedAlt = formatPhrase(altDescription);
 
   return (
-    <div className="card" data-testid="card">
+    <a href="/" className="card" data-testid="card" onClick={(event) => onCardClick(event, item)}>
       <div className="card__inner">
         <div className="card__image">
           <figure>
-            <img className="card__img" src="/assets/images/img/product-default.jpg" alt="Product" />
+            <img className="card__img" src={small} alt={formattedAlt} />
           </figure>
         </div>
 
         <div className="card__info">
-          <h3 className="card__title">{title}</h3>
-
-          <div className="card__meta">
-            <div className="card__brand">
-              <div className="badge badge--basic">
-                <div className="badge__inner">
-                  <span>{brand}</span>,
-                </div>
-              </div>
-            </div>
-
-            <div className="card__category">
-              <div className="badge badge--orange">
-                <div className="badge__inner">
-                  <span>{category}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="card__rating">
-            Rating:
-            <span className="card__rating-value"> {rating}</span>
-          </div>
-
-          <div className="card__stock">
-            <span>{stock ? `${stock} in stock` : `not in stock`}</span>
-          </div>
-
-          <div className="card__description">
-            {description.split(' ').slice(0, 16).join(' ')}...
-          </div>
+          <div className="card__description">{cropPhrase(formattedAlt)}</div>
 
           <div className="card__footer">
-            <div className="card__price">
-              {discountPercentage ? (
-                <span className="card__price-old">${parseFloat(price.toString()).toFixed(2)}</span>
-              ) : (
-                ''
-              )}
-              <span className="card__price-new">
-                $
-                {discountPercentage
-                  ? parseFloat(((price * (100 - discountPercentage)) / 100).toString()).toFixed(2)
-                  : parseFloat(price.toString()).toFixed(2)}
-              </span>
+            <div className="card__by">
+              By:
+              <span className="card__by-value"> {username}</span>
             </div>
-
-            {discountPercentage ? (
-              <span className="card__discount">-{discountPercentage}%</span>
-            ) : (
-              ''
-            )}
+            <div className="card__likes">
+              Likes:
+              <span className="card__likes-value"> {likes}</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </a>
   );
 };
 

@@ -1,11 +1,11 @@
 import React from 'react';
 import AccountCard from '../AccountCard/AccountCard';
 
-interface IAccountCardsProps {
-  accounts: IAccountData[];
+interface AccountCardsProps {
+  accounts: AccountData[];
 }
 
-const Cards: React.FC<IAccountCardsProps> = (props) => {
+const Cards: React.FC<AccountCardsProps> = (props) => {
   const { accounts } = props;
 
   return (

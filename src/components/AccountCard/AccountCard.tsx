@@ -1,10 +1,10 @@
 import React from 'react';
 
-interface IAccountCardProps {
-  item: IAccountData;
+interface AccountCardProps {
+  item: AccountData;
 }
 
-const AccountCard: React.FC<IAccountCardProps> = (props) => {
+const AccountCard: React.FC<AccountCardProps> = (props) => {
   const { item } = props;
   const { id, name, dob, country, policy, notifications, contact, image } = item;
 

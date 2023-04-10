@@ -36,7 +36,7 @@ describe('Account Card component', () => {
 
   it('renders account card with an image', () => {
     const imageFile = new File([new Uint8Array(10)], 'profile.jpg', { type: 'image/jpeg' });
-    const accountDataWithImage: IAccountData = { ...testAccountData, image: imageFile };
+    const accountDataWithImage: AccountData = { ...testAccountData, image: imageFile };
 
     const { getByAltText } = render(<AccountCard item={accountDataWithImage} />);
 

@@ -30,6 +30,10 @@
 .card {
   display: block;
 
+  &:hover {
+    cursor: pointer;
+  }
+
   &:not(:last-child) {
     margin-bottom: 0;
 
@@ -115,8 +119,15 @@
   &__description {
     color: $text-grey-deep;
     word-break: break-word;
-    @include text-14;
+    @include text-16;
     margin-bottom: 16px;
+  }
+
+  &__by,
+  &__likes {
+    color: $text-grey-deep;
+    word-break: break-word;
+    @include text-14;
   }
 
   &__footer,

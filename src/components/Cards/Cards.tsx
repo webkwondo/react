@@ -1,19 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Card from '../Card/Card';
+import Modal from '../Modal/Modal';
 
-interface ICardsProps {
-  products: IProduct[];
+interface CardsProps {
+  items: Item[];
 }
 
-const Cards: React.FC<ICardsProps> = (props) => {
-  const { products } = props;
+const Cards: React.FC<CardsProps> = (props) => {
+  const { items } = props;
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentItem, setCurrentItem] = useState<Item | null>(null);
+
+  const handleCardClick = (event: React.MouseEvent<HTMLElement> | MouseEvent, item: Item) => {
+    event.preventDefault();
+    setIsModalOpen(true);
+    setCurrentItem(item);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
 
   return (
-    <div className="page__cards cards view-mode-grid">
-      {products.map((product) => {
-        return <Card key={product.id} item={product} />;
-      })}
-    </div>
+    <>
+      <div className="page__cards cards view-mode-grid">
+        {items.map((item) => {
+          return <Card key={item.id} item={item} onCardClick={handleCardClick} />;
+        })}
+      </div>
+      {currentItem && (
+        <Modal
+          key={currentItem.id}
+          isOpen={isModalOpen}
+          onClose={handleModalClose}
+          id={currentItem.id}
+        />
+      )}
+    </>
   );
 };
 

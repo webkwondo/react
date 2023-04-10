@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 
-interface IAboutPageProps {
+interface AboutPageProps {
   onPageChange: (pageName: string) => void;
 }
 
-const AboutPage: React.FC<IAboutPageProps> = (props) => {
+const AboutPage: React.FC<AboutPageProps> = (props) => {
   const { onPageChange } = props;
 
   useEffect(() => {

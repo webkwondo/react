@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import AccountForm from '../../components/AccountForm/AccountForm';
 
-interface IAccountPageProps {
+interface AccountPageProps {
   onPageChange: (pageName: string) => void;
 }
 
-const AccountPage: React.FC<IAccountPageProps> = (props) => {
+const AccountPage: React.FC<AccountPageProps> = (props) => {
   const { onPageChange } = props;
 
   useEffect(() => {
