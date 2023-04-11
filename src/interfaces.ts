@@ -9,7 +9,7 @@ interface Item {
   height: number;
   color: string;
   blur_hash: string;
-  description?: string;
+  description?: string | null;
   alt_description: string;
   urls: Urls;
   links: Links;
@@ -41,11 +41,11 @@ interface User {
   username: string;
   name: string;
   first_name: string;
-  last_name?: string;
-  twitter_username: string;
-  portfolio_url?: string;
-  bio?: string;
-  location?: string;
+  last_name?: string | null;
+  twitter_username: string | null;
+  portfolio_url?: string | null;
+  bio?: string | null;
+  location?: string | null;
   links: UserLinks;
   profile_image: ProfileImage;
   instagram_username: string;
@@ -75,9 +75,9 @@ interface ProfileImage {
 
 interface Social {
   instagram_username: string;
-  portfolio_url?: string;
-  twitter_username: string;
-  paypal_email: string;
+  portfolio_url?: string | null;
+  twitter_username: string | null;
+  paypal_email: string | null;
 }
 
 interface AccountData {

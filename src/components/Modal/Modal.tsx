@@ -52,7 +52,11 @@ const Modal: React.FC<ModalProps> = (props) => {
   }
 
   return (
-    <div className={`modal-overlay ${isOpen ? 'opened' : ''}`} onMouseDown={handleMouseDown}>
+    <div
+      className={`modal-overlay ${isOpen ? 'opened' : ''}`}
+      onMouseDown={handleMouseDown}
+      data-testid="modal-overlay"
+    >
       <div className="modal">
         {isContentLoading && <ProgressIndicator isLoading={isContentLoading} />}
         {!isContentLoading && item && (
@@ -77,7 +81,7 @@ const Modal: React.FC<ModalProps> = (props) => {
             </div>
           </>
         )}
-        <button className="modal__close" onClick={onClose} type="button">
+        <button className="modal__close" onClick={onClose} type="button" aria-label="Close">
           &#10005;
         </button>
       </div>
