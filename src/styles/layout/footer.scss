@@ -1,0 +1,23 @@
+.footer {
+  background: linear-gradient(45deg, $black, $grey-smolder);
+  color: $text-grey-lighter;
+  padding: 56px 0 32px 0;
+
+  @include tablet {
+    padding: 32px 0;
+  }
+
+  &__copyright {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: baseline;
+    gap: 10px;
+  }
+
+  &__logo {
+    display: block;
+    width: 60px;
+    height: auto;
+  }
+}
