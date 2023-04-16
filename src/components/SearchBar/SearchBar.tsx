@@ -1,43 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { changed } from '../../store/reducers/SearchTermSlice';
 
-interface SearchBarProps {
-  onSearch: (searchTerm: string) => void;
-}
-
-const SearchBar: React.FC<SearchBarProps> = (props) => {
-  const { onSearch } = props;
-
-  const [searchTerm, setSearchTerm] = useState(() => {
-    return localStorage.getItem('searchTerm') || '';
-  });
-
-  const searchTermRef = React.useRef<string>(searchTerm);
-
-  useEffect(() => {
-    searchTermRef.current = searchTerm;
-  }, [searchTerm]);
-
-  useEffect(() => {
-    const term = localStorage.getItem('searchTerm');
-
-    if (term !== null) {
-      setSearchTerm(term);
-      onSearch(term);
-    }
-
-    return () => {
-      localStorage.setItem('searchTerm', searchTermRef.current);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
-  };
+const SearchBar = () => {
+  const searchTerm = useAppSelector((state) => state.searchTerm.searchTerm);
+  const dispatch = useAppDispatch();
+  const searchField = React.useRef<HTMLInputElement | null>(null);
 
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    onSearch(searchTerm);
+    const newSearchTerm =
+      searchField && searchField.current && searchField.current instanceof HTMLInputElement
+        ? searchField.current.value
+        : '';
+    dispatch(changed(newSearchTerm));
   };
 
   return (
@@ -59,8 +35,8 @@ const SearchBar: React.FC<SearchBarProps> = (props) => {
             id="search-field"
             placeholder="Type something then press Enter..."
             autoComplete="off"
-            value={searchTerm}
-            onChange={handleInputChange}
+            defaultValue={searchTerm}
+            ref={searchField}
           />
           <button className="search-bar__button button button--clean" type="submit">
             <span className="visually-hidden">Search</span>

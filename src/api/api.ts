@@ -1,34 +1,29 @@
-import axios from 'axios';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-const API_URL = 'https://unsplash-backend-mr2j.onrender.com/api';
+export const API_URL = 'https://unsplash-backend-mr2j.onrender.com/api';
 
-export const getData = async (searchTerm: string) => {
-  if (!searchTerm) return null;
+export const itemsApi = createApi({
+  reducerPath: 'itemsApi',
+  baseQuery: fetchBaseQuery({
+    baseUrl: API_URL,
+  }),
+  endpoints: (builder) => ({
+    getItems: builder.query<SearchApiResponse, string>({
+      query: (searchTerm: string) => ({
+        url: '/search/photos',
+        params: {
+          query: searchTerm,
+          per_page: 21,
+        },
+      }),
+    }),
+    getItem: builder.query<Item, string>({
+      query: (id: string) => ({
+        url: `/photos/${id}`,
+      }),
+    }),
+  }),
+});
 
-  try {
-    const response = await axios.get(`${API_URL}/search/photos`, {
-      params: {
-        query: searchTerm,
-        per_page: 21,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error('Error occured during data fetching');
-    return null;
-  }
-};
-
-export const getDataById = async (id: string) => {
-  if (!id) return null;
-
-  try {
-    const response = await axios.get(`${API_URL}/photos/${id}`);
-    return response.data;
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error('Error occured during data fetching');
-    return null;
-  }
-};
+export default itemsApi.reducer;
+export const { useGetItemsQuery, useGetItemQuery } = itemsApi;

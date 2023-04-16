@@ -1,28 +1,14 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { v4 as uuidv4 } from 'uuid';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import AccountCards from '../AccountCards/AccountCards';
-
-interface AccountFormState {
-  accounts: AccountData[];
-}
-
-interface AccountFormData {
-  fieldFullName: string;
-  fieldDob: string;
-  fieldCountry: string;
-  fieldCheckPolicy: boolean;
-  fieldCheckNotifications: boolean;
-  fieldContact: string;
-  fieldImage: FileList;
-}
+import { added } from '../../store/reducers/AccountSlice';
 
 const AccountForm = () => {
-  const [accountFormState, setAccountFormState] = useState(() => {
-    const state: AccountFormState = { accounts: [] };
-    return state;
-  });
+  const accounts = useAppSelector((state) => state.account.accounts);
+  const dispatch = useAppDispatch();
 
   const {
     register,
@@ -43,9 +29,7 @@ const AccountForm = () => {
       image: data.fieldImage[0],
     };
 
-    setAccountFormState((prevState: AccountFormState) => {
-      return { accounts: [...prevState.accounts, newAccount] };
-    });
+    dispatch(added(newAccount));
 
     reset();
   };
@@ -233,7 +217,7 @@ const AccountForm = () => {
         )}
       </form>
 
-      {!!accountFormState.accounts.length && <AccountCards accounts={accountFormState.accounts} />}
+      {!!accounts.length && <AccountCards accounts={accounts} />}
     </>
   );
 };

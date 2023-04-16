@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { formatDate, wait, formatPhrase } from '../Utils/Utils';
+import React, { useEffect } from 'react';
+import { formatDate, formatPhrase } from '../Utils/Utils';
 import ProgressIndicator from '../ProgressIndicator/ProgressIndicator';
-import { getDataById } from '../../api/api';
+import { useGetItemQuery } from '../../api/api';
 
 interface ModalProps {
   id: string;
@@ -11,8 +11,7 @@ interface ModalProps {
 
 const Modal: React.FC<ModalProps> = (props) => {
   const { onClose, isOpen, id } = props;
-  const [isContentLoading, setIsContentLoading] = useState(false);
-  const [item, setItem] = useState<Item | null>(null);
+  const { data: item, isLoading: isContentLoading, error } = useGetItemQuery(id);
 
   const handleMouseDown = (e: React.MouseEvent<HTMLElement> | MouseEvent) => {
     if (e.target === e.currentTarget) {
@@ -34,19 +33,6 @@ const Modal: React.FC<ModalProps> = (props) => {
     };
   }, [onClose]);
 
-  useEffect(() => {
-    const loadData = async (itemId: string) => {
-      setIsContentLoading(true);
-      await wait(2);
-      const data = await getDataById(itemId);
-      if (!data) setItem(null);
-      if (data) setItem(data);
-      setIsContentLoading(false);
-    };
-
-    loadData(id);
-  }, [id]);
-
   if (!isOpen) {
     return null;
   }
@@ -59,6 +45,11 @@ const Modal: React.FC<ModalProps> = (props) => {
     >
       <div className="modal">
         {isContentLoading && <ProgressIndicator isLoading={isContentLoading} />}
+        {error && (
+          <p className="modal__loading-error" role="alert">
+            There was an error. Please, try again
+          </p>
+        )}
         {!isContentLoading && item && (
           <>
             <img

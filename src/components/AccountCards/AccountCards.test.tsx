@@ -1,7 +1,9 @@
 import React from 'react';
 import { describe, it } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import 'jsdom-worker';
+import { Provider } from 'react-redux';
+import store from '../../store/store';
 import AccountCards from './AccountCards';
 
 const cards = [
@@ -39,17 +41,26 @@ const cards = [
 
 describe('AccountCards component', () => {
   it('should render the correct number of account cards', () => {
-    const { getAllByTestId } = render(<AccountCards accounts={cards} />);
+    const { getAllByTestId } = render(
+      <Provider store={store}>
+        <AccountCards accounts={cards} />
+      </Provider>
+    );
+
     const renderedCards = getAllByTestId('account-card');
 
     expect(renderedCards.length).toEqual(cards.length);
   });
 
   it('should display correct cards titles', () => {
-    render(<AccountCards accounts={cards} />);
-    const titleElement1 = screen.getByText('Test Name 1');
-    const titleElement2 = screen.getByText('Test Name 2');
-    const titleElement3 = screen.getByText('Test Name 3');
+    const { getByText } = render(
+      <Provider store={store}>
+        <AccountCards accounts={cards} />
+      </Provider>
+    );
+    const titleElement1 = getByText('Test Name 1');
+    const titleElement2 = getByText('Test Name 2');
+    const titleElement3 = getByText('Test Name 3');
     expect(titleElement1).toBeInTheDocument();
     expect(titleElement2).toBeInTheDocument();
     expect(titleElement3).toBeInTheDocument();

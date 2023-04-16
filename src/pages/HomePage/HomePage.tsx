@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useAppSelector } from '../../hooks/redux';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import Cards from '../../components/Cards/Cards';
-import { getData } from '../../api/api';
+import { useGetItemsQuery } from '../../api/api';
 import ProgressIndicator from '../../components/ProgressIndicator/ProgressIndicator';
-import { wait } from '../../components/Utils/Utils';
 
 interface HomePageProps {
   onPageChange: (pageName: string) => void;
@@ -11,20 +11,20 @@ interface HomePageProps {
 
 const HomePage: React.FC<HomePageProps> = (props) => {
   const { onPageChange } = props;
-  const [isLoading, setIsLoading] = useState(false);
-  const [items, setItems] = useState([]);
+  const searchTerm = useAppSelector((state) => state.searchTerm.searchTerm);
+  const { data, isLoading, error } = useGetItemsQuery(searchTerm);
+  const items = data?.results || null;
 
   useEffect(() => {
     onPageChange('Home');
   }, [onPageChange]);
 
-  const handleSearch = async (searchTerm: string) => {
-    setIsLoading(true);
-    await wait(2);
-    const data = await getData(searchTerm);
-    if (!data) setItems([]);
-    if (data) setItems(data.results);
-    setIsLoading(false);
+  const getCards = () => {
+    return items && items.length ? (
+      <Cards items={items} />
+    ) : (
+      <p className="home__loading-empty">No results</p>
+    );
   };
 
   return (
@@ -38,8 +38,14 @@ const HomePage: React.FC<HomePageProps> = (props) => {
 
         <section className="page__home home">
           <div className="home__container container">
-            <SearchBar onSearch={handleSearch} />
-            {isLoading ? <ProgressIndicator isLoading={isLoading} /> : <Cards items={items} />}
+            <SearchBar />
+            {isLoading && <ProgressIndicator isLoading={isLoading} />}
+            {!isLoading && !error && getCards()}
+            {error && (
+              <p className="home__loading-error" role="alert">
+                There was an error. Please, try again
+              </p>
+            )}
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo veniam eligendi
               perspiciatis harum maxime consequatur dolore magnam explicabo eos, blanditiis a

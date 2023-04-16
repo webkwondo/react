@@ -1,33 +1,52 @@
 import React from 'react';
+import { describe, it, vi, expect } from 'vitest';
 import { render, fireEvent } from '@testing-library/react';
-import { describe, it, vi } from 'vitest';
+import { Provider } from 'react-redux';
 import SearchBar from './SearchBar';
+import store from '../../store/store';
 
-const mockHandleSearch = vi.fn();
-
-describe('Search Bar component', () => {
-  it('renders search bar correctly', () => {
-    const { getByLabelText } = render(<SearchBar onSearch={mockHandleSearch} />);
-    const searchBar = getByLabelText(/Search for items/i);
-    expect(searchBar).toBeInTheDocument();
+describe('SearchBar', () => {
+  it('should render correctly', () => {
+    const { getByRole } = render(
+      <Provider store={store}>
+        <SearchBar />
+      </Provider>
+    );
+    const input = getByRole('textbox');
+    expect(input).toBeInTheDocument();
   });
 
-  it('sets initial search term from local storage', () => {
-    localStorage.setItem('searchTerm', 'test');
-    const { getByDisplayValue } = render(<SearchBar onSearch={mockHandleSearch} />);
-    const searchField = getByDisplayValue('test');
-    expect(searchField).toBeInTheDocument();
+  it('should update search term on form submit', () => {
+    const { getByRole } = render(
+      <Provider store={store}>
+        <SearchBar />
+      </Provider>
+    );
+    const input = getByRole('textbox') as HTMLInputElement;
+    fireEvent.change(input, { target: { value: 'test' } });
+    fireEvent.submit(input.form!);
+    expect(store.getState().searchTerm.searchTerm).toEqual('test');
   });
 
-  test('updates search term when input field is changed', () => {
-    const { getByLabelText } = render(<SearchBar onSearch={mockHandleSearch} />);
-    const searchField = getByLabelText(/Search for items/i) as HTMLInputElement;
-    fireEvent.change(searchField, { target: { value: 'test' } });
-    expect(searchField.value).toBe('test');
+  it('should update search term to an empty string on empty input', () => {
+    const { getByRole } = render(
+      <Provider store={store}>
+        <SearchBar />
+      </Provider>
+    );
+    const input = getByRole('textbox') as HTMLInputElement;
+    fireEvent.change(input, { target: { value: 'test' } });
+    fireEvent.change(input, { target: { value: '' } });
+    fireEvent.submit(input.form!);
+    expect(store.getState().searchTerm.searchTerm).toEqual('');
   });
 
-  test('prevents form default event on submit', () => {
-    const { getByRole } = render(<SearchBar onSearch={mockHandleSearch} />);
+  it('prevents form default event on submit', () => {
+    const { getByRole } = render(
+      <Provider store={store}>
+        <SearchBar />
+      </Provider>
+    );
     const submitButton = getByRole('button', { name: /Search/i });
     const form = submitButton.closest('form') as HTMLFormElement;
     const preventDefault = vi.fn();

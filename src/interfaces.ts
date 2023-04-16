@@ -1,5 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
+interface SearchApiResponse {
+  results: Item[];
+  total: number;
+  total_pages: number;
+}
+
 interface Item {
   id: string;
   created_at: string;
@@ -89,4 +95,14 @@ interface AccountData {
   notifications: boolean;
   contact: string | null;
   image: File | null;
+}
+
+interface AccountFormData {
+  fieldFullName: string;
+  fieldDob: string;
+  fieldCountry: string;
+  fieldCheckPolicy: boolean;
+  fieldCheckNotifications: boolean;
+  fieldContact: string;
+  fieldImage: FileList;
 }

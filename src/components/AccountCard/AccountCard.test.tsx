@@ -2,6 +2,8 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { describe, it } from 'vitest';
 import 'jsdom-worker';
+import { Provider } from 'react-redux';
+import store from '../../store/store';
 import AccountCard from './AccountCard';
 
 const testAccountData = {
@@ -17,7 +19,11 @@ const testAccountData = {
 
 describe('Account Card component', () => {
   it('renders account card with correct data', () => {
-    const { getByText } = render(<AccountCard item={testAccountData} />);
+    const { getByText } = render(
+      <Provider store={store}>
+        <AccountCard item={testAccountData} />
+      </Provider>
+    );
 
     expect(getByText(/Account 1/i)).toBeInTheDocument();
     expect(getByText(/Name:/i)).toHaveTextContent('Name: Jane Dawn');
@@ -29,7 +35,11 @@ describe('Account Card component', () => {
   });
 
   it('renders account card without an image', () => {
-    const { queryByAltText } = render(<AccountCard item={testAccountData} />);
+    const { queryByAltText } = render(
+      <Provider store={store}>
+        <AccountCard item={testAccountData} />
+      </Provider>
+    );
 
     expect(queryByAltText('Profile')).toBeNull();
   });
@@ -38,7 +48,11 @@ describe('Account Card component', () => {
     const imageFile = new File([new Uint8Array(10)], 'profile.jpg', { type: 'image/jpeg' });
     const accountDataWithImage: AccountData = { ...testAccountData, image: imageFile };
 
-    const { getByAltText } = render(<AccountCard item={accountDataWithImage} />);
+    const { getByAltText } = render(
+      <Provider store={store}>
+        <AccountCard item={accountDataWithImage} />
+      </Provider>
+    );
 
     expect(getByAltText('Profile')).toBeInTheDocument();
     expect(getByAltText('Profile')).toHaveAttribute('src', expect.stringContaining('blob:'));
